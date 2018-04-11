@@ -5,13 +5,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-$ php composer.phar require  anxu/yii2-simditor "*"
+$ php composer.phar require  lubobill1990/yii2-simditor "*"
 ```
 
 or add
 
 ```json
-"anxu/yii2-simditor": "*"
+"lubobill1990/yii2-simditor": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -22,10 +22,10 @@ to the require section of your `composer.json` file.
 #### Like a widget ####
 
 ```php
-echo \anxu\Simditor::widget([
-    'toolbarSet'=>[
-        'toolbarHidden'=>false,
-        'toolbar'=>[//default true
+echo \lubobill1990\yii2\widget\Simditor::widget([
+    'clientOptions'=>[
+        'toolbarHidden' => false,
+        'toolbar' => [//default true
             'title',
             'bold',
             'italic',
@@ -40,9 +40,9 @@ echo \anxu\Simditor::widget([
 #### Like an ActiveForm widget ####
 
 ```php
-use anxu\Simditor;
-echo  $form->field($model, 'content')->widget(Simditor::classname(),[
-    'toolbarSet'=>[
+use lubobill1990\yii2\widget\Simditor;
+echo $form->field($model, 'content')->widget(Simditor::class,[
+    'clientOptions'=>[
         'toolbarHidden'=>false,
         'toolbar'=>[//default true
             'title',
@@ -57,3 +57,6 @@ echo  $form->field($model, 'content')->widget(Simditor::classname(),[
 ```
 For other options, refer to this website
 [http://simditor.tower.im/](http://simditor.tower.im/)
+
+## Claim
+This package is forked from anxu/yii2-simditor

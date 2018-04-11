@@ -11,8 +11,8 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "yiisoft/yii2": "~2.0.4",
-    "bower-asset/simditor": "~2.3.13"
+    "yiisoft/yii2": "~2.0.14",
+    "bower-asset/simditor": "^2.3.6"
   },
   "autoload": {
     "psr-4": {
