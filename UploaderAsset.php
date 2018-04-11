@@ -9,22 +9,11 @@ namespace anxu;
 
 use yii\web\AssetBundle;
 
-class HotkeysAsset extends AssetBundle
+class UploaderAsset extends AssetBundle
 {
-    /**
-     * [$sourcePath description]
-     * @var string
-     */
-    public $sourcePath ='@vendor/bower/simple-uploader';
+    public $sourcePath = '@vendor/bower/simple-uploader';
 
-
-    /**
-     * [$js description]
-     * @var array
-     */
     public $js = [
         'lib/uploader.js',
-
     ];
-
 }
