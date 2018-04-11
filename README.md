@@ -22,7 +22,7 @@ to the require section of your `composer.json` file.
 #### Like a widget ####
 
 ```php
-echo \anxu\Yii2Simditor::widget([
+echo \anxu\Simditor::widget([
     'toolbarSet'=>[
         'toolbarHidden'=>false,
         'toolbar'=>[//default true
@@ -40,8 +40,8 @@ echo \anxu\Yii2Simditor::widget([
 #### Like an ActiveForm widget ####
 
 ```php
-use anxu\Yii2Simditor;
-echo  $form->field($model, 'content')->widget(Yii2Simditor::classname(),[
+use anxu\Simditor;
+echo  $form->field($model, 'content')->widget(Simditor::classname(),[
     'toolbarSet'=>[
         'toolbarHidden'=>false,
         'toolbar'=>[//default true

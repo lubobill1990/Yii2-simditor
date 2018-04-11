@@ -1,22 +1,28 @@
 {
-  "name": "anxu/yii2-simditor",
+  "name": "lubobill1990/yii2-simditor",
   "description": "editor for yii2 framework",
   "type": "yii2-extension",
   "license": "MIT",
   "authors": [
     {
-      "name": "anxu",
-      "email": "anxu1212@hotmail.com"
+      "name": "Bill Lu",
+      "email": "lubobill1990@163.com"
     }
   ],
   "require": {
     "php": ">=5.4.0",
     "yiisoft/yii2": "~2.0.4",
-    "bower-asset/simditor": "*"
+    "bower-asset/simditor": "~2.3.13"
   },
   "autoload": {
     "psr-4": {
-      "anxu\\": ""
+      "lubobill1990\\yii2\\widget\\": "src"
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }

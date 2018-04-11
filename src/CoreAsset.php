@@ -1,11 +1,11 @@
 <?php
 /**
- * User: anxu
+ * User: lubobill1990\yii2\widget
  * Date: 16-3-29
  * Time: 下午10:44
  */
 
-namespace anxu;
+namespace lubobill1990\yii2\widget;
 
 use yii\web\AssetBundle;
 
@@ -25,8 +25,7 @@ class CoreAsset extends AssetBundle
     ];
 
     public $depends = [
-        'anxu\ModuleAsset',
-        'anxu\HotkeysAsset',
-        'anxu\UploaderAsset',
+        'lubobill1990\yii2\widget\ModuleAsset',
+        'lubobill1990\yii2\widget\HotkeysAsset',
     ];
 }

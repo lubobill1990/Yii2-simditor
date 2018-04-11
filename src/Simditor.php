@@ -1,14 +1,14 @@
 <?php
 
 /**
- * User: anxu
+ * User: lubobill1990\yii2\widget
  * Date: 16-3-29
  * Time: 下午10:27
  */
 
-namespace anxu;
+namespace lubobill1990\yii2\widget;
 
-use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\View;
 use yii\helpers\Html;
 use yii\helpers\Json;
@@ -18,7 +18,7 @@ use yii\base\Model;
 use yii\base\InvalidConfigException;
 
 
-class Yii2Simditor extends Widget
+class Simditor extends Widget
 {
 
     /**
@@ -39,49 +39,42 @@ class Yii2Simditor extends Widget
      */
     public $options = [];
 
+    public $defaultClientOptions = [
+        'toolbarFloat ' => false,
+        'toolbarHidden' => false,
+        'toolbarFloatOffset' => 0,
+        'toolbar' => [
+            'title',
+            'bold',
+            'italic',
+            'underline',
+            'strikethrough',
+            'fontScale',
+            'color',
+            '|',
+            'ol',
+            'ul',
+            'blockquote',
+            'code',
+            'table',
+            '|',
+            'link',
+            'image',
+            'hr',
+            '|',
+            'indent',
+            'outdent',
+            'alignment'
+        ],
+    ];
 
-
-
+    /**
+     * Simditor options
+     * @var array
+     */
     public $clientOptions = [
 
     ];
-
-    public $defaultImage ='img/image.png';
-
-    public $toolbarSet = [
-        'toolbarFloat ' => false,
-        'toolbarHidden' => false, //Can not work together with toolbarFloat.
-        'toolbarFloatOffset' => 0,
-        'toolbar' =>true
-//        'toolbar' =>[
-//            'title',
-//            'bold',
-//            'italic',
-//            'underline',
-//            'strikethrough',
-//            'fontScale',
-//            'color',
-//            '|',
-//            'ol',
-//            'ul',
-//            'blockquote',
-//            'code',
-//            'table',
-//            '|',
-//            'link',
-//            'image',
-//            'hr',
-//            '|',
-//            'indent',
-//            'outdent',
-//            'alignment'
-//        ]
-    ];
-    /**
-     * internal marker for the name of the plugin
-     * @var string
-     */
-    private $_pluginName = 'simditor';
 
     /**
      * Initializes the widget.
@@ -89,7 +82,6 @@ class Yii2Simditor extends Widget
      */
     public function init()
     {
-
         if ($this->name === null && !$this->hasModel()) {
             throw new InvalidConfigException("Either 'name', or 'model' and 'attribute' properties must be specified.");
         }
@@ -97,6 +89,15 @@ class Yii2Simditor extends Widget
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
         }
+
+        $this->clientOptions = ArrayHelper::merge($this->defaultClientOptions, $this->clientOptions);
+
+        if (!$this->clientOptions['defaultImage']) {
+            $path = __DIR__ . '/images/loading_420.gif';
+            \Yii::$app->assetManager->publish($path);
+            $this->clientOptions['defaultImage'] = \Yii::$app->assetManager->getPublishedUrl($path);
+        }
+
         parent::init();
     }
 
@@ -113,13 +114,13 @@ class Yii2Simditor extends Widget
      */
     public function run()
     {
-        echo Html::beginTag('div') . "\n";
+        echo Html::beginTag('div');
         if ($this->hasModel()) {
             echo Html::activeTextarea($this->model, $this->attribute, $this->options);
         } else {
-            echo Html::textarea($this->name, '',$this->options);
+            echo Html::textarea($this->name, '', $this->options);
         }
-        echo Html::endTag('div') . "\n";
+        echo Html::endTag('div');
 
         $this->registerPlugin();
     }
@@ -130,15 +131,13 @@ class Yii2Simditor extends Widget
      */
     protected function registerPlugin()
     {
-
-        /** @var \yii\web\AssetBundle $assetClass */
-        $assets = CoreAsset::register($this->view);
-
-        if (isset($this->options['uploader'])) {
-            $assets->uploader = $this->options['uploader'];
+        if (@$this->clientOptions['upload']) {
+            UploaderAsset::register($this->view);
         }
 
-        $cleanOptions = $this->getClientOptions();
+        CoreAsset::register($this->view);
+
+        $cleanOptions = Json::encode($this->getClientOptions());
 
         $js = "var editor=new Simditor($cleanOptions);";
 
@@ -152,10 +151,7 @@ class Yii2Simditor extends Widget
     {
         $id = $this->options['id'];
         $options['textarea'] = new JsExpression("$('#{$id}')");
-        $options['defaultImage'] = $this->defaultImage;
 
-        $options = array_merge($options, $this->toolbarSet);
-        return Json::encode($options);
+        return array_merge($options, $this->clientOptions);
     }
-
 }
