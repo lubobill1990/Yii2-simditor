@@ -11,9 +11,9 @@ use yii\web\AssetBundle;
 
 class ModuleAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/bower/simple-module';
+    public $sourcePath = __DIR__ . '/../assets';
 
     public $js = [
-        'lib/module.js',
+        'scripts/simple-module.min.js',
     ];
 }

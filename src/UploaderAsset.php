@@ -11,10 +11,10 @@ use yii\web\AssetBundle;
 
 class UploaderAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/bower/simple-uploader';
+    public $sourcePath = __DIR__ . '/../assets';
 
     public $js = [
-        'lib/uploader.js',
+        'scripts/simple-uploader.min.js',
     ];
 
     public $depends = [

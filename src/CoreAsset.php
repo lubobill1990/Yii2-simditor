@@ -12,7 +12,7 @@ use yii\web\AssetBundle;
 
 class CoreAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/bower/simditor';
+    public $sourcePath = __DIR__ . '/../assets';
 
     public $uploader = false;
 
@@ -21,7 +21,7 @@ class CoreAsset extends AssetBundle
     ];
 
     public $js = [
-        "lib/simditor.js"
+        "scripts/simditor.min.js"
     ];
 
     public $depends = [

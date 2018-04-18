@@ -93,7 +93,7 @@ class Simditor extends Widget
         $this->clientOptions = ArrayHelper::merge($this->defaultClientOptions, $this->clientOptions);
 
         if (!$this->clientOptions['defaultImage']) {
-            $path = __DIR__ . '/images/loading_420.gif';
+            $path = __DIR__ . '/assets/images/loading_420.gif';
             \Yii::$app->assetManager->publish($path);
             $this->clientOptions['defaultImage'] = \Yii::$app->assetManager->getPublishedUrl($path);
         }

@@ -11,9 +11,9 @@ use yii\web\AssetBundle;
 
 class HotkeysAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/bower/simple-hotkeys';
+    public $sourcePath = __DIR__ . '/../assets';
 
     public $js = [
-        'lib/hotkeys.js',
+        'scripts/hotkeys.min.js',
     ];
 }
