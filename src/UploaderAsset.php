@@ -14,7 +14,7 @@ class UploaderAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/../assets';
 
     public $js = [
-        'scripts/simple-uploader.min.js',
+        'scripts/uploader.min.js',
     ];
 
     public $depends = [

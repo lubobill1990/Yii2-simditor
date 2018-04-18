@@ -8,6 +8,14 @@
 
 namespace lubobill1990\yii2\widget;
 
+use lubobill1990\yii2\widget\plugins\AutosaveAsset;
+use lubobill1990\yii2\widget\plugins\ChecklistAsset;
+use lubobill1990\yii2\widget\plugins\ClearhtmlAsset;
+use lubobill1990\yii2\widget\plugins\DropzoneAsset;
+use lubobill1990\yii2\widget\plugins\EmojiAsset;
+use lubobill1990\yii2\widget\plugins\FullscreenAsset;
+use lubobill1990\yii2\widget\plugins\MarkAsset;
+use lubobill1990\yii2\widget\plugins\MentionAsset;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
 use yii\helpers\Html;
@@ -40,6 +48,16 @@ class Simditor extends Widget
     public $options = [];
 
     public $defaultClientOptions = [
+        'upload' => false,
+        'dropzone' => true,
+        'autosave' => true,
+        'checklist' => false,
+        'clearformat' => false,
+        'fullscreen' => false,
+        'mention' => false,
+        'emoji' => false,
+        'mark' => false,
+
         'toolbarFloat ' => false,
         'toolbarHidden' => false,
         'toolbarFloatOffset' => 0,
@@ -92,10 +110,14 @@ class Simditor extends Widget
 
         $this->clientOptions = ArrayHelper::merge($this->defaultClientOptions, $this->clientOptions);
 
-        if (!$this->clientOptions['defaultImage']) {
-            $path = __DIR__ . '/assets/images/loading_420.gif';
+        if (!isset($this->clientOptions['defaultImage'])) {
+            $path = __DIR__ . '/../assets/images/loading_420.gif';
             \Yii::$app->assetManager->publish($path);
             $this->clientOptions['defaultImage'] = \Yii::$app->assetManager->getPublishedUrl($path);
+        }
+
+        if ($this->clientOptions['autosave'] === true) {
+            $this->clientOptions['autosave'] = $this->model->formName() . "SD_" . $this->attribute;
         }
 
         parent::init();
@@ -131,8 +153,46 @@ class Simditor extends Widget
      */
     protected function registerPlugin()
     {
-        if (@$this->clientOptions['upload']) {
+        if ($this->clientOptions['upload']) {
             UploaderAsset::register($this->view);
+
+            if ($this->clientOptions['dropzone']) {
+                DropzoneAsset::register($this->view);
+            }
+        }
+
+        if ($this->clientOptions['autosave']) {
+            AutosaveAsset::register($this->view);
+        }
+
+        if ($this->clientOptions['checklist']) {
+            ChecklistAsset::register($this->view);
+        }
+
+        if ($this->clientOptions['clearformat']) {
+            ClearhtmlAsset::register($this->view);
+        }
+
+        if ($this->clientOptions['fullscreen']) {
+            FullscreenAsset::register($this->view);
+        }
+
+        if ($this->clientOptions['mention']) {
+            MentionAsset::register($this->view);
+        }
+
+        if ($this->clientOptions['emoji']) {
+            if ($this->clientOptions['emoji'] === true) {
+                $this->clientOptions['emoji'] = [
+                    'imagePath' => \Yii::$app->assetManager->getPublishedUrl(__DIR__ . '/../assets/plugins/simditor-emoji/images/emoji') . '/'
+                ];
+            }
+
+            EmojiAsset::register($this->view);
+        }
+
+        if ($this->clientOptions['mark']) {
+            MarkAsset::register($this->view);
         }
 
         CoreAsset::register($this->view);

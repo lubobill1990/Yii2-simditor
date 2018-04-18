@@ -14,6 +14,6 @@ class ModuleAsset extends AssetBundle
     public $sourcePath = __DIR__ . '/../assets';
 
     public $js = [
-        'scripts/simple-module.min.js',
+        'scripts/module.min.js',
     ];
 }

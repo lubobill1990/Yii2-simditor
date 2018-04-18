@@ -17,7 +17,8 @@ class CoreAsset extends AssetBundle
     public $uploader = false;
 
     public $css = [
-        "styles/simditor.css"
+        "styles/simditor.css",
+        "styles/additional.css",
     ];
 
     public $js = [
