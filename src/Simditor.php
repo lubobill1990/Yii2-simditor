@@ -117,7 +117,16 @@ class Simditor extends Widget
         }
 
         if ($this->clientOptions['autosave'] === true) {
-            $this->clientOptions['autosave'] = $this->model->formName() . "SD_" . $this->attribute;
+            //set unique autosave key to avoid content overwritten by localstorage
+            if ($this->model->hasMethod('getPrimaryKey')) {
+                $key = json_encode($this->model->getPrimaryKey());
+            } elseif (isset($_REQUEST['id'])) {
+                $key = $_REQUEST['id'];
+            } else {
+                $key = false;
+            }
+            //if there is no key, disable autosave
+            $this->clientOptions['autosave'] = $key === false ? false : $this->model->formName() . "SD" . $key . ':' . $this->attribute;
         }
 
         parent::init();
